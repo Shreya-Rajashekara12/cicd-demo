@@ -1,0 +1,37 @@
+name: Java CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  dependency-graph: write
+
+jobs:
+  build:
+    # Using windows-latest because your Jenkinsfile uses 'bat' (Windows commands)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build and Install
+        # In your Jenkinsfile, you used dir('demo'). 
+        # In GitHub Actions, we use 'working-directory'.
+        run: mvn clean install
+        working-directory: cicd-demo
+
+      - name: Run Tests
+        run: mvn test
+        working-directory: cicd-demo
