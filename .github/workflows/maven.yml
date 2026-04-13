@@ -28,5 +28,5 @@ jobs:
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@v1
       with:
-        # You must tell the security action where the pom is too!
-        directory-tree: cicd-demo
+        # This tells the action to enter the sub-folder before running Maven
+        directory: cicd-demo
