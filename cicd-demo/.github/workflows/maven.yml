@@ -21,6 +21,5 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        # Using -B (Batch Mode) is best practice for CI to reduce log noise
         run: mvn -B clean install
         working-directory: cicd-demo
